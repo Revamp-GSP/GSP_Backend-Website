@@ -1,0 +1,268 @@
+/* public/css/projects.css */
+#header {
+    margin-left:20px;
+}
+#filter {
+    margin-left:500px;
+}
+.search-create-wrapper {
+    display: flex;
+    border-radius: 4px;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 7px;
+    margin-left: 50px;
+}
+
+.search-create-wrapper input[type="text"] {
+    padding: 5px;
+    width: 250px;
+    margin-right: 10px;
+}
+.search-create-wrapper button {
+    width:100px;
+}
+#btnsw {
+    background-color: #EEEDEB;
+    outline: black;
+}
+#btnsw:hover {
+    color:black;
+}
+
+.search-create-wrapper button, 
+.search-create-wrapper a {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: black;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Style for filter button */
+#filter-button {
+    padding: 5px 20px;
+    margin-top: 32px;
+    background-color: #EEEDEB;
+    color: black;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* Style for header column table */
+.table th {
+    font-weight: bold;
+    padding: 12px;
+    white-space: nowrap;
+    background-color: #D6DAC8; 
+    color: #333; 
+    text-transform: uppercase;
+    text-align: center;
+    font-size:15px;
+}
+
+/* Style for table */
+.table {
+    width: 100%;
+    max-width: 100%;
+    border-collapse: collapse;
+    margin-left:25px;
+    margin-right: 25px;
+}
+
+.table td {
+    text-align: center;
+    font-size:15px;
+    padding:10px;
+    white-space: nowrap;
+    border-bottom: 1px solid #ddd;
+}
+
+.table tr {
+    background-color: #f5f5f5;
+}
+
+/* Style for small form controls */
+.form-control-sm {
+    height: calc(1.5em + 0.5rem + 2px);
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+}
+
+/* Responsive table style */
+@media (max-width: 768px) {
+    .table thead {
+        display: none;
+    }
+    .table th, .table td {
+        white-space: nowrap; /* Mencegah pemotongan teks */
+        text-overflow: ellipsis; /* Menampilkan tanda elipsis (...) jika konten tidak cukup untuk ditampilkan */
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table td {
+        text-align: right;
+    }
+
+    .table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+}
+
+/* Style for status button */
+.status-btn {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+}
+
+/* Set color according to status */
+.status-btn.Selesai { background-color: green; }
+.status-btn.Pembayaran { background-color: blue; }
+.status-btn.Implementasi { background-color: orange; }
+.status-btn.FollowUp { background-color: purple; }
+.status-btn.Postpone { background-color: red; }
+
+
+
+#projects-container {
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+select.form-control,
+input.form-control {
+    width: 100%;
+    padding-bottom: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button.btn-primary {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Style untuk input yang dipilih */
+.radio-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.radio-buttons label {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.radio-buttons label:hover {
+    background-color: #f0f0f0;
+}
+
+/* Style untuk input yang dipilih */
+.radio-buttons input[type="radio"]:checked + label {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.radio-buttons input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+}
+
+.radio-buttons input[type="radio"] + label::before {
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+    margin-right: 5px;
+    vertical-align: middle;
+    transition: background-color 0.3s ease-in-out; /* Efek transisi untuk perubahan warna llingkaran */
+}
+
+.radio-buttons input[type="radio"]:checked + label::before {
+    background-color: transparent; /* Menghilangkan llingkaran saat dipilih */
+}
+
+/* Untuk memindahkan tulisan ke tengah setelah dipilih */
+.radio-buttons input[type="radio"]:checked + label {
+    padding-left: 0; /* Menghapus padding kiri */
+    text-align: center; /* Pusatkan teks */
+}
+
+/* Untuk menghilangkan lingkaran di sebelah kiri tulisan */
+.radio-buttons input[type="radio"]:checked + label::before {
+    border: none; /* Menghilangkan border saat dipilih */
+}
+
+/* Pagination styling */
+.pagination {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 0 5px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: white;
+}
+
+.pagination span {
+    background-color: #ccc;
+    pointer-events: none;
+    cursor: default;
+}
+
