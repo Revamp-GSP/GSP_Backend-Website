@@ -54,7 +54,6 @@ class AuthController extends Controller
             ], 500);
         }
     }
-
     /**
      * Login The User
      * @param Request $request

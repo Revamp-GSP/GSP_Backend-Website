@@ -1,0 +1,224 @@
+/* CSS untuk progressbar-wrapper */
+.progressbar-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; 
+    position: relative; 
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px; 
+    position: relative; 
+}
+
+.step-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px; 
+}
+
+.step-title {
+    text-align: center;
+}
+
+/* Gaya untuk status langkah yang selesai */
+.step.completed .step-circle {
+    background-color: #28a745;
+    color: white;
+}
+
+/* Gaya untuk status langkah yang belum selesai */
+.step.incomplete .step-circle {
+    background-color: #007bff;
+}
+
+/* Gaya untuk status langkah yang aktif */
+.step.active .step-circle {
+    background-color: #007bff; 
+}
+
+/* CSS untuk garis penghubung antar langkah */
+.step-connector {
+    height: 2px;
+    background-color: #979797;
+    flex: 1; 
+    position: relative; 
+    left: -7px;
+    top: -15px; 
+    transform: translateY(-50%); 
+}
+
+
+.step-connector.completed-connector {
+    background-color: #28a745; 
+}
+
+.step-connector.incompleted-connector {
+    background-color: #666; 
+}
+
+/* Task */
+.task-list {
+    margin-top: 20px;
+}
+
+.task-item {
+    margin-bottom: 20px;
+}
+
+/* Tombol toggle */
+.toggle-task {
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    height: 60px; /* Menyamakan lebar dengan task-item */
+    margin-bottom: 10px;
+}
+
+/* Konten task */
+.task-content {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    display: none;
+}
+
+.task-content.active {
+    background-color: lightblue;
+    padding: 10px;
+    display: block;
+}
+
+
+/* Tabel dalam konten task */
+.task-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.task-content th, .task-content td {
+    padding: 30px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.task-content th {
+    background-color: #f2f2f2;
+}
+
+.task-content tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.task-content tr:hover {
+    background-color: #ddd;
+}
+
+/* Gaya untuk tabel dengan class .table-responsive */
+.table-responsive {
+    width: 100%;
+    margin-top: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow-y: auto; /* Menambahkan overflow vertikal */
+}
+
+.table-responsive th, 
+.table-responsive td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    max-width: 150px; /* Atur lebar maksimal kolom */
+}
+
+.table-responsive th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.table-responsive tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table-responsive tr:hover {
+    background-color: #eaeaea;
+}
+
+/* Gaya khusus untuk tombol dalam tabel */
+.table-responsive .edit-task-btn,
+.table-responsive .delete-task-btn {
+    padding: 5px 10px;
+    margin: 0 2px;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.table-responsive .edit-task-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+}
+
+.table-responsive .delete-task-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+}
+
+.table-responsive .edit-task-btn:hover,
+.table-responsive .delete-task-btn:hover {
+    opacity: 0.8;
+}
+
+/* Gaya untuk link dalam tabel */
+.table-responsive a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.table-responsive a:hover {
+    text-decoration: underline;
+}
+
+
+/* Gaya untuk container td */
+.table-responsive td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    max-width: 150px; /* Atur lebar maksimal kolom */
+}
+
+/* Gaya untuk teks yang dipotong */
+.program-shortened-text {
+    display: inline-block;
+    max-width: 150px; /* Atur lebar maksimal untuk teks yang dipotong */
+    overflow: hidden;
+    text-overflow: ellipsis; /* Tampilkan ellipsis jika teks terpotong */
+    white-space: nowrap; /* Mencegah pembungkusan teks */
+}
+
+/* Gaya untuk container td dengan teks panjang */
+.program-container {
+    display: flex;
+    flex-direction: column; /* Teks bergerak ke bawah */
+    max-height: 60px; /* Tinggi maksimal container */
+    overflow: hidden; /* Sembunyikan overflow */
+}
+
+
+

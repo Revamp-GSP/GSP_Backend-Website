@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Project extends Model
 {
@@ -40,7 +41,6 @@ class Project extends Model
         'comments'
     ];
 
-    // Relationship with Customer
     public function customer()
     {
         return $this->belongsTo(customers::class, 'customer_id');

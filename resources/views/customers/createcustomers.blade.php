@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" id="custom-container2">
+<div class="container" id="custom-container">
     <h2>Add New Pelanggan</h2>
     <form action="{{ route('customers.store') }}" method="POST">
         @csrf
@@ -23,7 +23,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
 @endsection
 
 <link href="{{ asset('css/services.css') }}" rel="stylesheet">

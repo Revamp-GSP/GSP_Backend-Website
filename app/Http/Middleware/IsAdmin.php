@@ -1,9 +1,9 @@
 <?php
-  
+
 namespace App\Http\Middleware;
-  
+
 use Closure;
-   
+
 class IsAdmin
 {
     /**
@@ -15,10 +15,13 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->user()->is_admin == 1){
+        if (auth()->check() && auth()->user()->is_admin == 1) {
             return $next($request);
+        } else {
+            // Tampilkan pesan alert jika bukan admin
+            return response()->json([
+                'message' => "Anda tidak memiliki akses ke halaman ini."
+            ]);
         }
-   
-        return redirect(‘home’)->with(‘error’,"You don't have admin access.");
     }
 }

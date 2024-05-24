@@ -8,13 +8,6 @@ body {
 #custom-container {
     background-color: transparent !important;
 }
-#custom-container2 {
-    width: 100%;
-    padding-top:20px;
-    background-color: transparent;
-    box-sizing:border-box;
-    padding-bottom: 20px; /* Tambahkan padding bawah tambahan */
-}
 
 /* CSS for custom container */
 #custom-container {

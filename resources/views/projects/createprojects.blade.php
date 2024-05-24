@@ -1,4 +1,3 @@
-<!-- resources/views/projects/createprojects.blade.php -->
 
 @extends('layouts.app')
 
@@ -147,7 +146,6 @@
                 </select>
             </div>
 
-            <!-- Radio buttons for RASCI - DIRUT -->
             <!-- Radio buttons for DIRUT -->
             <div class="form-group">
                 <label for="dirut">DIRUT:</label>
@@ -352,12 +350,9 @@
                 </div>
             </div>
 
-
-
             <!-- Button to submit form -->
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-    </div>
 @endsection
 
 

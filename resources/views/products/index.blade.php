@@ -88,8 +88,6 @@
             <span>Next &raquo;</span>
         @endif
     </div>
-
-</div>
 @endsection
 
 <link href="{{ asset('css/services.css') }}" rel="stylesheet">

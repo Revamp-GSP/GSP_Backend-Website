@@ -1,6 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="card-container">
+    <a href="{{ route('projects.index') }}" class="card-link">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title">Total Projects</h3>
+                <p class="card-number">{{ $totalProjects }}</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="{{ route('customers.index') }}" class="card-link">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title">Total Customers</h3>
+                <p class="card-number">{{ $totalCustomers }}</p>
+            </div>
+        </div>
+    </a>
+
+
+
+    <a href="{{ route('products.index') }}" class="card-link">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title">Total Services</h3>
+                <p class="card-number">{{ $totalServices }}</p>
+            </div>
+        </div>
+    </a>
+
+    <a href="{{ route('users.index') }}" class="card-link">
+        <div class="card">
+            <div class="card-content">
+                <h3 class="card-title">Total Users</h3>
+                <p class="card-number">{{ $totalUsers }}</p>
+            </div>
+        </div>
+    </a>
+</div>
+
 <div class="wrapper">
     <div class="task-section">
         <div class="task-input">

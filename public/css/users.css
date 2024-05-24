@@ -1,10 +1,15 @@
 /* General Styling */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    margin: 0;
-    padding: 0;
+    position: flex;
+    overflow-x: hidden;
+    background-color: #CFD8DC;
 }
+body,
+html {
+    height: 100%;
+    width: 100%;
+}
+
 #custom-container {
     background-color: transparent !important;
     width: 100%;
@@ -25,7 +30,7 @@ body {
 #custom-container {
     width: 100%;
     padding-top: 20px;
-    padding-left: 0px;
+    padding-right:50px;
     padding-bottom: 20px; /* Tambahkan padding bawah tambahan */
     border-radius: 10px;
     box-sizing: border-box;

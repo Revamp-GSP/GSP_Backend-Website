@@ -1,30 +1,23 @@
-<!-- resources/views/projects/index.blade.php -->
-
 @extends('layouts.app')
 
 @section('content')
 <div class="table-container">
-@if (session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-@endif
-        <div class="row mb-3">
-            <div class="col-md-6" id="header">
-                <h1>Daftar Projects</h1>
+    @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
             </div>
-        </div>
+    @endif
         <div class="row">
             <div class="col-md-12" id="filter">
                 <!-- Filter by date range -->
                 <form action="{{ route('projects.index') }}" method="GET" style="margin-bottom: 5px;">
                     <div class="row">
                         <div class="col-md-2">
-                            <label for="start-date-input">Start Date:</label> <!-- Tambahkan label -->
+                            <label for="start-date-input">Start Date:</label>
                             <input type="date" name="date_range_start" id="start-date-input" class="form-control form-control-sm" placeholder="Start Date" value="{{ request('date_range_start') }}">
                         </div>
                         <div class="col-md-2">
-                            <label for="end-date-input">End Date:</label> <!-- Tambahkan label -->
+                            <label for="end-date-input">End Date:</label>
                             <input type="date" name="date_range_end" id="end-date-input" class="form-control form-control-sm" placeholder="End Date" value="{{ request('date_range_end') }}">
                         </div>
                         <div class="col-md-1">
@@ -75,14 +68,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                    @php
-                        $baseNumber = ($projects->currentPage() - 1) * $projects->perPage() + 1;
-                        $totalNilaiRkap = 0;
-                        $totalNilaiAktual = 0;
-                        $totalNilaiKontrak = 0;
-                    @endphp
-
-                    @foreach($projects as $project)
+                        @php 
+                            $baseNumber = ($projects->currentPage() - 1) * $projects->perPage() + 1;
+                            $totalNilaiRkap = 0;
+                            $totalNilaiAktual = 0;
+                            $totalNilaiKontrak = 0;
+                        @endphp
+                        @foreach($projects as $project)
                         @php
                             $totalNilaiRkap += $project->nilai_pekerjaan_rkap;
                             $totalNilaiAktual += $project->nilai_pekerjaan_aktual;
@@ -101,7 +93,7 @@
                             <td>
                                 <span class="status-btn" style="background-color: {{ getStatusColor($project->status) }}">{{ $project->status }}</span>
                             </td>
-                            <td>{{ $project->nama_pekerjaan }}</td>
+                            <td><a href="{{ route('projects.show', $project->nama_pekerjaan) }}">{{ $project->nama_pekerjaan }}</a></td>
                             <td>{{ $project->nama_service }}</td>
                             <td>{{ number_format($project->nilai_pekerjaan_rkap, 0, ',', '.') }}</td>
                             <td>{{ number_format($project->nilai_pekerjaan_aktual, 0, ',', '.') }}</td>
@@ -156,8 +148,6 @@
                             <td>
                                 <span class="status-btn" style="background-color: {{ getRasciColor($project->msadb) }}">{{ $project->msadb }}</span>
                             </td>
-
-                            
                         </tr>
                         @endforeach
 
@@ -197,20 +187,8 @@
             @endif
         </div>
 
-</div>
-
 @endsection
 
-@section('scripts')
-    <script src="https://cdn.datatables.net/1.11.6/js/jquery.dataTables.min.js"></script>
-    <link href="https://cdn.datatables.net/1.11.6/css/jquery.dataTables.min.css" rel="stylesheet">
-
-    <script>
-        $(document).ready(function () {
-            $('#projects-table').DataTable();
-        });
-    </script>
-@endsection
 @php
 function getRasciColor($rasci) {
     switch ($rasci) {

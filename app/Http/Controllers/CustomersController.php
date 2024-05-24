@@ -11,6 +11,7 @@ class CustomersController extends Controller
     public function index(Request $request)
     {
         $query = Customers::query();
+        $totalCustomers = Customers::count();
 
         // Filter by customer ID
         if ($request->has('id_pelanggan')) {

@@ -5,8 +5,13 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\User;
+use App\Notifications\ProjectCreatedNotification;
+use App\Notifications\ProjectUpdatedNotification;
+use App\Notifications\ProjectDeletedNotification;
 use App\Models\Customer;
 use App\Models\Produk;
+use Validator;
 
 class ProjectsAPIController extends Controller
 {
@@ -63,39 +68,89 @@ class ProjectsAPIController extends Controller
 
     public function store(Request $request)
     {
-        // Validation
-        $request->validate([
+        // Validasi
+        $validator = Validator::make($request->all(), [
             'customer_id' => 'sometimes|exists:customers,id',
             'product_id' => 'sometimes|exists:produks,id',
-            // tambahkan validasi lainnya di sini sesuai kebutuhan
+            // Tambahkan validasi lain yang diperlukan di sini
         ]);
 
-        // Create the project
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 400);
+        }
+
+        // Membuat proyek baru
         $project = Project::create($request->all());
+
+        // Kirim notifikasi kepada semua pengguna setelah proyek berhasil dibuat
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new ProjectCreatedNotification($project));
+        }
 
         return response()->json(['message' => 'Project created successfully.', 'project' => $project], 201);
     }
 
+
     public function update(Request $request, $id)
     {
-        // Validation
-        $request->validate([
+        // Validasi
+        $validator = Validator::make($request->all(), [
             'customer_id' => 'sometimes|exists:customers,id',
             'product_id' => 'sometimes|exists:produks,id',
-            // tambahkan validasi lainnya di sini sesuai kebutuhan
+            'status' => 'required',
+            // Tambahkan validasi lain yang diperlukan di sini
         ]);
 
-        // Update the project
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 400);
+        }
+
+        // Temukan proyek
         $project = Project::findOrFail($id);
+        $originalProject = $project->replicate(); // Simpan nilai asli proyek sebelum pembaruan
+
+        // Update proyek
         $project->update($request->all());
+
+        // Bandingkan data lama dan data baru
+        $changes = [];
+        foreach ($request->all() as $key => $value) {
+            if ($originalProject->$key != $value && $key !== '_token' && $key !== '_method') {
+                $changes[$key] = [
+                    'old' => $originalProject->$key,
+                    'new' => $value,
+                ];
+            }
+        }
+
+        // Kirim notifikasi hanya jika ada perubahan
+        if (!empty($changes)) {
+            $users = User::all();
+            foreach ($users as $user) {
+                $user->notify(new ProjectUpdatedNotification($project, $changes));
+            }
+        }
 
         return response()->json(['message' => 'Project updated successfully.', 'project' => $project]);
     }
 
+
     public function destroy($id)
     {
-        // Delete the project
-        Project::findOrFail($id)->delete();
+        // Temukan proyek
+        $project = Project::findOrFail($id);
+        
+        // Hapus proyek
+        $project->delete();
+
+        // Kirim notifikasi kepada semua pengguna setelah proyek berhasil dihapus
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new ProjectDeletedNotification($project->name));
+        }
+
         return response()->json(['message' => 'Project deleted successfully.']);
     }
+
 }

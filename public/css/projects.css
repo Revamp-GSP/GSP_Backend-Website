@@ -1,9 +1,18 @@
 /* public/css/projects.css */
-#header {
-    margin-left:20px;
+
+body {
+    position: flex;
+    overflow-x: hidden;
+    background-color: #CFD8DC;
 }
+body,
+html {
+    height: 100%;
+    width: 100%;
+}
+
 #filter {
-    margin-left:500px;
+    margin-left:350px;
 }
 .search-create-wrapper {
     display: flex;

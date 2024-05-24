@@ -24,7 +24,6 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Profile Image</th>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Is Admin</th>
@@ -40,13 +39,6 @@
             @foreach ($users as $user)
                 <tr>
                     <td>{{ $baseNumber + $loop->index }}</td>
-                    <td>
-                        @if($user->image)
-                            <img src="data:image/png;base64,{{ $user->image }}" alt="Profile Image" width="50">
-                        @else
-                            No Image
-                        @endif
-                    </td>
                     <td>{{ $user->name }}</td>
                     <td>{{ $user->email }}</td>
                     <td>{{ $user->is_admin ? 'Yes' : 'No' }}</td>

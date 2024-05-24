@@ -44,9 +44,8 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email',
-            'password' => 'required|min:6',
+            'password' => 'required|min:3',
             'is_admin' => 'required|boolean',
-            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
         // Store the user

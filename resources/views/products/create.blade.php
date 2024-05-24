@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" id="custom-container2">
-    <h2>Add New Product</h2>
+<div class="container" id="custom-container" style="background:transparent;">
+    <h2>Add New Service</h2>
     <form action="{{ route('products.store') }}" method="POST">
         @csrf
         <div class="form-group">
@@ -28,7 +28,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
 @endsection
 
 <link href="{{ asset('css/services.css') }}" rel="stylesheet">

@@ -113,9 +113,28 @@
                 padding: 40px 15px 15px 15px;
             }
         }
+        /* CSS Styles */
+        .error-message {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #f8d7da; /* Warna background merah untuk error */
+            color: #721c24; /* Warna teks untuk error */
+            border: 1px solid #f5c6cb; /* Warna border untuk error */
+            padding: 20px; /* Padding untuk isi kotak pesan error */
+            text-align: center; /* Teks di tengah */
+            z-index: 9999; /* Pastikan pesan error di atas elemen lain */
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Shadow untuk efek depth */
+        }
     </style>
 </head>
 <body>
+    @if(session('error'))
+        <div class="alert alert-danger error-message">
+            {{ session('error') }}
+        </div>
+    @endif
     <div class="wrapper">
         <div class="logo">
             <img src="{{ asset('images/logo.png') }}" alt="Logo">
@@ -125,6 +144,9 @@
         </div>
         <form class="p-3 mt-3 login-form" method="POST" action="{{ route('login') }}">
             @csrf
+            @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <div class="form-field d-flex align-items-center" style="margin-top: 5px;">
                 <span class="far fa-user"></span>
                 <input type="email" name="email" id="email" placeholder="Email" required>
@@ -133,8 +155,34 @@
                 <span class="fas fa-key"></span>
                 <input type="password" name="password" id="password" placeholder="Password" required>
             </div>
+            @error('password')
+                <div class="alert alert-danger">{{ $message }}</div>
+            @enderror
             <button type="submit" class="btn mt-3" style="margin-top: 30px;">Login</button>
         </form>
     </div>
+    <script>
+        // Ambil pesan error dari session
+        var errorMessage = "{{ session('error') }}";
+
+        // Jika ada pesan error, tampilkan pop-up
+        if (errorMessage) {
+            // Buat elemen div untuk pop-up
+            var errorDiv = document.createElement('div');
+            errorDiv.className = 'alert alert-danger error-message';
+            errorDiv.innerHTML = errorMessage;
+
+            // Tambahkan pop-up ke body
+            document.body.appendChild(errorDiv);
+
+            // Hilangkan pesan error dari session agar tidak muncul kembali saat refresh
+            sessionStorage.removeItem('error');
+            
+            // Hapus pop-up setelah beberapa detik
+            setTimeout(function() {
+                errorDiv.remove();
+            }, 5000); // Pop-up akan hilang setelah 5 detik
+        }
+    </script>
 </body>
 </html>

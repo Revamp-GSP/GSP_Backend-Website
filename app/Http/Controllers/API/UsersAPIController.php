@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class UsersAPIController extends Controller
 {
@@ -36,13 +37,16 @@ class UsersAPIController extends Controller
     public function store(Request $request)
     {
         // Validation
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
-            'is_admin' => 'required|boolean',
+            'is_admin' => 'required|boolean',        
         ]);
 
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 400);
+        }
         // Store the user
         $userData = $request->all();
         $userData['password'] = bcrypt($request->password);
@@ -61,10 +65,15 @@ class UsersAPIController extends Controller
     public function update(Request $request, $id)
     {
         // Validation
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'email' => 'required|unique:users,email,'.$id,
+            'email' => 'required|unique:users,email',
+            'password' => 'required|min:6',
+            'is_admin' => 'required|boolean',        
         ]);
+        if ($validator->fails()) {
+            return response()->json(['success' => false, 'message' => $validator->errors()], 400);
+        }
 
         // Update the user
         $user = User::findOrFail($id);

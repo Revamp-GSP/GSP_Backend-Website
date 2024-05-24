@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container" id="custom-container">
+    <div class="container" id="custom-container" style="background:transparent;">
     <h2>Edit Services</h2>
     <form action="{{ route('products.update', $product->id) }}" method="POST">
         @csrf
@@ -24,7 +24,6 @@
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-</div>
 @endsection
 
 <link href="{{ asset('css/services.css') }}" rel="stylesheet">

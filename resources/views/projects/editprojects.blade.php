@@ -317,7 +317,6 @@
             <!-- Button to submit form -->
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
-    </div>
 @endsection
 
 <link href="{{ asset('css/projects.css') }}" rel="stylesheet">

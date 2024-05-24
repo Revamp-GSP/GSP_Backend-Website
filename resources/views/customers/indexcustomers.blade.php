@@ -12,7 +12,6 @@
     <!-- Search and filter form -->
     <div class="search-create-wrapper">
         <a href="{{ route('customers.create') }}" class="btn btn-primary" id="btnsw">Add New Customer</a>
-
         <form action="{{ route('customers.index') }}" method="GET" style="margin-bottom:5px;">
             <input type="text" name="search" placeholder="Search..." value="{{ request('search') }}">
             <button type="submit" id="btnsw">Search</button>
@@ -81,9 +80,6 @@
     @else
         <span>Next &raquo;</span>
     @endif
-</div>
-
-
 </div>
 @endsection
 
