@@ -13,6 +13,9 @@ use App\Http\Controllers\DownloadController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Middleware\LogResponseTime;
+use App\Http\Middleware\LogActivities;
+use App\Http\Controllers\ActivityLogController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +33,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
 Route::post('/login', [LoginController::class, 'login']);
-Route::middleware(LogResponseTime::class)->group(function () {
-
+Route::get('/logActivity', [ActivityLogController::class, 'index'])->name('logActivity');
+Route::delete('activity-log/delete', [ActivityLogController::class, 'delete'])->name('activity-log.delete');
+Route::delete('activity-log/delete-all', [ActivityLogController::class, 'deleteAll'])->name('activity-log.delete-all');
+Route::middleware('auth')->get('/notifications', [NotificationController::class, 'getNotifications']);
+Route::middleware(['auth', 'logResponseTime', 'log.activity'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');
     Route::get('/admin/project', [HomeController::class, 'adminProject'])->name('admin.project');
@@ -43,7 +48,6 @@ Route::middleware(LogResponseTime::class)->group(function () {
     Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
     Route::put('/products/{id}', [ProductController::class, 'update'])->name('products.update');
     Route::delete('/products/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
-
     // Index route untuk menampilkan daftar pelanggan
     Route::get('/customers', [CustomersController::class, 'index'])->name('customers.index');
 
@@ -72,8 +76,10 @@ Route::middleware(LogResponseTime::class)->group(function () {
     Route::get('/projects/{nama_pekerjaan}', [ProjectsController::class, 'show'])->name('projects.show');
     Route::post('/projects/{nama_pekerjaan}/tasks', [ProjectsController::class, 'storeTask']);
     Route::put('/projects/{nama_pekerjaan}/tasks/{task_id}', [ProjectsController::class, 'updateTask'])->name('projects.updateTask');
+    Route::group(['prefix' => 'projects/{nama_pekerjaan}', 'as' => 'projects.'], function () {
+        Route::post('/comments', [CommentController::class, 'addComment'])->name('comments.add')->middleware('auth');
+    });
 
-    Route::middleware('auth')->get('/notifications', [NotificationController::class, 'getNotifications']);
 
     // Users CRUD Routes
         Route::get('/users', [UsersController::class, 'index'])->name('users.index');
@@ -83,19 +89,17 @@ Route::middleware(LogResponseTime::class)->group(function () {
         Route::put('/users/{user}/update', [UsersController::class, 'update'])->name('users.update');
         Route::delete('/users/{user}/destroy', [UsersController::class, 'destroy'])->name('users.destroy');
 
-
-    Route::get('/download/{filename}', function ($filename) {
-        $path = public_path('files/' . $filename);
-
-        if (file_exists($path)) {
-            return response()->download($path);
-        } else {
-            abort(404);
-        }
-    })->name('file.download');
-
     Route::get('/comments/create', [CommentController::class, 'create'])->name('comments.create');
     Route::post('/comments', [CommentController::class, 'store'])->name('comments.store');
 
 });
+Route::get('/download/{filename}', function ($filename) {
+    $path = public_path('files/' . $filename);
+
+    if (file_exists($path)) {
+        return response()->download($path);
+    } else {
+        abort(404);
+    }
+})->name('file.download');
 

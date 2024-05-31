@@ -84,8 +84,8 @@
                     <option value="Pending">Postpone</option>
                     <option value="Follow Up">Follow Up</option>
                     <option value="Implementasi">Implementasi</option>
-                    <option value="Pembayaran">Pembayaran</option>
-                    <option value="Selesai">Selesai</option>
+                    <option value="Payment">Payment</option>
+                    <option value="Finished">Finished</option>
                 </select>
             </div>
 

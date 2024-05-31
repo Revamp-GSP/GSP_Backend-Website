@@ -38,7 +38,6 @@ class LoginController extends Controller
             if ($user->is_admin == 1) {
                 return redirect()->route('admin.home')->with('success', 'Anda berhasil login sebagai admin!');
             } elseif ($user->is_admin == 0) {
-                Auth::logout(); // Logout pengguna jika bukan admin
                 return redirect()->back()->with('error', "Anda tidak memiliki akses ke halaman ini.");
             }
             // Jika berhasil login, atur token

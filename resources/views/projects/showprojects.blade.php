@@ -2,7 +2,7 @@
 
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<div class="container" style="background-color: transparent;">
+<div class="container" style="background-color: transparent;   margin-bottom: 50px;">
     <h1>Detail Proyek: {{ $project->nama_pekerjaan }}</h1>
     <p></p>
     <div class="progressbar-wrapper">
@@ -253,7 +253,7 @@
 
         // Kirim data formulir ke server dengan menambahkan nilai nama_pekerjaan ke URL
         $.ajax({
-            url: '/api/projects/' + nama_pekerjaan + '/tasks', // Sesuaikan dengan URL yang sesuai di aplikasi Anda
+            url: '/api/projects/' + nama_pekerjaan + '/tasks',
             type: 'POST',
             data: formData,
             processData: false,
@@ -307,7 +307,7 @@ $('.delete-task-btn').click(function() {
 
     if (confirm('Are you sure you want to delete this task?')) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/projects/'+ nama_pekerjaan + '/tasks/' + taskId, // Sesuaikan dengan URL yang sesuai
+            url: 'http://127.0.0.1:8000/api/projects/'+ nama_pekerjaan + '/tasks/' + taskId, 
             type: 'DELETE',
             success: function(response) {
                 if (response.success) {
@@ -326,8 +326,8 @@ $('.delete-task-btn').click(function() {
     }
 });
 $('#addTaskModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget); // Tombol yang memicu modal
-        var task = button.data('task'); // Mengambil data-task dari atribut data-task pada tombol
+        var button = $(event.relatedTarget);
+        var task = button.data('task'); 
 
         // Update nilai input nama_task dalam modal dengan nilai task yang dipilih
         var modal = $(this);
@@ -343,10 +343,10 @@ $('#addTaskModal').on('show.bs.modal', function (event) {
 function getStatusColor($stepNumber, $currentStatus) {
     // Mengubah status proyek menjadi angka
     switch ($currentStatus) {
-        case 'Selesai':
+        case 'Finished':
             $currentStatusNumber = 5;
             break;
-        case 'Pembayaran':
+        case 'Payment':
             $currentStatusNumber = 4;
             break;
         case 'Implementasi':
@@ -373,10 +373,10 @@ function getStatusColor($stepNumber, $currentStatus) {
 function getConnectorColor($stepNumber, $currentStatus) {
     // Mengubah status proyek menjadi angka
     switch ($currentStatus) {
-        case 'Selesai':
+        case 'Finished':
             $currentStatusNumber = 5;
             break;
-        case 'Pembayaran':
+        case 'Payment':
             $currentStatusNumber = 4;
             break;
         case 'Implementasi':

@@ -52,8 +52,8 @@ class ProjectsController extends Controller
         }
         $projects = $query->orderByRaw("
             CASE
-                WHEN status = 'Selesai' THEN 1
-                WHEN status = 'Pembayaran' THEN 2
+                WHEN status = 'Finished' THEN 1
+                WHEN status = 'Paymnent' THEN 2
                 WHEN status = 'Implementasi' THEN 3
                 WHEN status = 'Follow Up' THEN 4
                 WHEN status = 'Postpone' THEN 5
@@ -245,8 +245,8 @@ class ProjectsController extends Controller
             ['number' => 1, 'name' => 'Postpone', 'description' => 'Deskripsi Langkah 1'],
             ['number' => 2, 'name' => 'Follow Up', 'description' => 'Deskripsi Langkah 2'],
             ['number' => 3, 'name' => 'Implementasi', 'description' => 'Deskripsi Langkah 3'],
-            ['number' => 4, 'name' => 'Pembayaran', 'description' => 'Deskripsi Langkah 4'],
-            ['number' => 5, 'name' => 'Selesai', 'description' => 'Deskripsi Langkah 5'],
+            ['number' => 4, 'name' => 'Payment', 'description' => 'Deskripsi Langkah 4'],
+            ['number' => 5, 'name' => 'Finished', 'description' => 'Deskripsi Langkah 5'],
         ];
 
         // Daftar task statis
@@ -310,7 +310,9 @@ class ProjectsController extends Controller
             $file = $request->file('file');
             $filename = time() . '_' . $file->getClientOriginalName();
             $file->storeAs('public/files', $filename);
-            $task->dokumen_output = $filename;
+
+            // Mengatur URL dokumen
+            $task->dokumen_output = url('storage/files/' . $filename);
         }
 
         // Simpan ke dalam database

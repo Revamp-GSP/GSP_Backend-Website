@@ -208,9 +208,9 @@ function getRasciColor($rasci) {
 }
 function getStatusColor($status) {
     switch ($status) {
-        case 'Selesai':
+        case 'Finished':
             return 'green';
-        case 'Pembayaran':
+        case 'Payment':
             return 'blue';
         case 'Implementasi':
             return 'orange';

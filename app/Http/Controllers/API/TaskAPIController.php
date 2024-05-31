@@ -123,7 +123,6 @@ class TaskAPIController extends Controller
             $file->move(public_path('files'), $originalFilename);
             $task->dokumen_output = $originalFilename;
         }        
-        
         $task->save();
 
         // Mengembalikan respons

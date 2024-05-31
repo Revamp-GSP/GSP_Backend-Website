@@ -19,7 +19,7 @@ class DownloadController extends Controller
         }
 
         // Ambil data file (misalnya, data blob atau binary) dari model
-        $fileData = $task->dokumen_output; // Mengasumsikan kolom dokumen_output berisi data file blob atau binary
+        $fileData = $task->dokumen_output; 
 
         // Set header untuk tipe konten yang sesuai
         $headers = [

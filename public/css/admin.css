@@ -43,12 +43,21 @@ body {
   position: flex;
   overflow-x: hidden;
   background-color: #CFD8DC;
+  padding-top: 56px;
 }
 body,
 html {
   height: 950px;
   width: 100%;
 } 
+/* CSS */
+.navbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000; 
+}
+
 li {
   list-style: none;
   margin: 20px 0 20px 0;
@@ -280,6 +289,7 @@ a {
 
 #page-content-wrapper {
   padding-top: 70px;
+  padding-bottom: 50px;
   -webkit-transition: margin-left 0.5s ease;
   -moz-transition: margin-left 0.5s ease;
   -o-transition: margin-left 0.5s ease;
@@ -371,7 +381,7 @@ height: max-content;
   padding-top:5px;
 }
 .sidebar-brand {
-  height: 84px;
+  height: 78px;
   position: relative;
   background:#4F4660;
   padding-top: 1em;
@@ -416,7 +426,7 @@ height: max-content;
   height: 50%;
   position: fixed;
   top: 20px; 
-  z-index: 999;
+  z-index: 1001;
   display: block;
   width: 32px;
   height: 32px;

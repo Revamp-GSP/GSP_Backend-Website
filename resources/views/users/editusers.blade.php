@@ -40,20 +40,32 @@
                 <option value="manager_keuangan" {{ $user->role == 'manager_keuangan' ? 'selected' : '' }}>Manager Keuangan</option>
             </select>
         </div>
-
-        <!-- New Password Field -->
         <div class="form-group">
-            <label for="password">New Password:</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
+    <label for="change_password">
+        <input type="checkbox" id="change_password" name="change_password"> Change Password
+    </label>
+</div>
 
-        <div class="form-group">
-            <label for="image">Image:</label>
-            <input type="file" name="image" id="image" class="form-control-file">
-        </div>
+<!-- New Password Field (hidden by default) -->
+<div class="form-group" id="new_password_field" style="display: none;">
+    <label for="new_password">New Password:</label>
+    <input type="password" class="form-control" id="password" name="password">
+</div>
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#change_password').change(function(){
+            if($(this).is(":checked")) {
+                $('#new_password_field').show();
+            } else {
+                $('#new_password_field').hide();
+            }
+        });
+    });
+</script>
 @endsection
 
 <link href="{{ asset('css/users.css') }}" rel="stylesheet">

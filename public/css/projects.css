@@ -138,8 +138,8 @@ html {
 }
 
 /* Set color according to status */
-.status-btn.Selesai { background-color: green; }
-.status-btn.Pembayaran { background-color: blue; }
+.status-btn.Finished { background-color: green; }
+.status-btn.Payment { background-color: blue; }
 .status-btn.Implementasi { background-color: orange; }
 .status-btn.FollowUp { background-color: purple; }
 .status-btn.Postpone { background-color: red; }

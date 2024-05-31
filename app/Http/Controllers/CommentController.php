@@ -2,29 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Comment;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function create()
+    public function addComment(Request $request)
     {
-        return view('comments.create');
-    }
-
-    public function store(Request $request)
-    {
-        // Validasi data masukan
+        // Validasi input
         $request->validate([
-            'task_id' => 'required|exists:tasks,id',
-            'user_id' => 'required|exists:users,id',
-            'comment' => 'required|string|max:255',
+            'project_id' => 'required|exists:projects,id',
+            'comment_text' => 'required|string',
+            'task_id' => 'nullable|exists:tasks,id',
         ]);
-
-        // Simpan komentar ke database
-        Comment::create($request->all());
-
-        // Redirect ke halaman sebelumnya
-        return redirect()->back()->with('success', 'Comment added successfully.');
+    
+        // Ambil user yang sedang terautentikasi
+        $user = Auth::user();
+    
+        // Buat komentar baru terkait dengan proyek dan (opsional) tugas
+        $comment = new Comment([
+            'comment_text' => $request->comment_text,
+            'user_id' => $user->id, // Menambahkan user_id dari user yang sedang terautentikasi
+        ]);
+    
+        // Simpan komentar dengan menyimpannya ke model proyek atau tugas yang sesuai
+        $project = \App\Models\Project::find($request->project_id);
+        $project->comments()->save($comment);
+    
+        // Jika task_id disertakan dalam permintaan, simpan komentar ke model tugas yang sesuai juga
+        if ($request->has('task_id')) {
+            $task = \App\Models\Task::find($request->task_id);
+            $task->comments()->save($comment);
+        }
+    
+        // Response sukses
+        return response()->json(['message' => 'Comment created successfully', 'comment' => $comment], 201);
     }
+
 }

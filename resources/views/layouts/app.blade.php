@@ -14,7 +14,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm fixed-top">
             <div class="container">
                 <div class="navbar-title">
                     <h3>Dashboard Monitoring Project PT. Gerbang Sinergi Prima</h3>
@@ -86,6 +86,7 @@
                 <li><a href="{{ route('customers.index') }}"><i class="fas fa-user-friends"></i> Customers</a></li>
                 <li><a href="{{ route('products.index') }}"><i class="fas fa-handshake"></i> Services</a></li>
                 <li><a href="{{ route('users.index') }}"><i class="fas fa-user"></i> Users</a></li>
+                <li><a href="{{ route('logActivity') }}"><i class="fas fa-user"></i> Activity Log</a></li>
             </ul>
         </nav>
 

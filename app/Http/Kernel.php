@@ -38,12 +38,16 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+            \App\Http\Middleware\LogResponseTime::class,
+
         ],
 
         'api' => [
             // \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            'logResponseTime' => \App\Http\Middleware\LogResponseTime::class,
+        'log.activity' => \App\Http\Middleware\LogActivities::class,
         ],
     ];
 
@@ -66,5 +70,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'logResponseTime' => \App\Http\Middleware\LogResponseTime::class,
+        'log.activity' => \App\Http\Middleware\LogActivities::class,
     ];
 }

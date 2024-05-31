@@ -85,11 +85,11 @@
                 <label for="status">Status:</label>
                 <select name="status" id="status" class="form-control" required>
                     <option value="">Pilih Status</option>
-                    <option value="Pending" {{ $project->status == 'Pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="Postpone" {{ $project->status == 'Postpone' ? 'selected' : '' }}>Postpone</option>
                     <option value="Follow Up" {{ $project->status == 'Follow Up' ? 'selected' : '' }}>Follow Up</option>
                     <option value="Implementasi" {{ $project->status == 'Implementasi' ? 'selected' : '' }}>Implementasi</option>
-                    <option value="Pembayaran" {{ $project->status == 'Pembayaran' ? 'selected' : '' }}>Pembayaran</option>
-                    <option value="Selesai" {{ $project->status == 'Selesai' ? 'selected' : '' }}>Selesai</option>
+                    <option value="Payment" {{ $project->status == 'Payment' ? 'selected' : '' }}>Payment</option>
+                    <option value="Finished" {{ $project->status == 'Finished' ? 'selected' : '' }}>Finished</option>
                 </select>
             </div>
 

@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Hash;
 class UsersController extends Controller
 {
     public function index(Request $request)
@@ -65,39 +65,21 @@ class UsersController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        // Validation
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|unique:users,email,'.$id,
-        ]);
+{
+    $user = User::findOrFail($id);
+    $user->name = $request->input('name');
+    $user->email = $request->input('email');
+    $user->is_admin = $request->input('is_admin');
+    $user->role = $request->input('role');
 
-        // Update the user
-        $user = User::findOrFail($id);
-        $userData = $request->all();
-        if ($request->has('password')) {
-            $userData['password'] = bcrypt($request->password);
-        }
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images');
-            $user->image = $imagePath;
-        }
-        $user->update($userData);
-
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully.');
+    // Check if the "Change Password" checkbox is checked and the new password is provided
+    if ($request->has('change_password') && $request->filled('password')) {
+        // Update the password if the checkbox is checked and a new password is provided
+        $user->password = Hash::make($request->input('password'));
     }
-    public function upload(Request $request)
-    {
-        if($request->hasFile('image')){
-            $filename = $request->image->getClientOriginalName();
-            $request->image->storeAs('images',$filename,'public');
-            Auth()->user()->update(['image'=>$filename]);
-        }
-        return redirect()->route('users.index')
-            ->with('success', 'User updated successfully.');
-    }
-
+    $user->save();
+    return redirect()->route('users.index')
+    ->with('success', 'User updated successfully.');}
     public function destroy($id)
     {
         // Delete the user
