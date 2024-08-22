@@ -8,6 +8,13 @@ use Illuminate\Notifications\DatabaseNotification;
 
 class NotificationController extends Controller
 {
+    public function index()
+    {
+        $user = Auth::user();
+        $notifications = $user->notifications()->paginate(10); // Mengambil notifikasi dengan pagination
+
+        return view('notifications.index', compact('notifications'));
+    }
     public function getNotifications(Request $request)
     {
         // Ensure authenticated user

@@ -46,6 +46,7 @@ class UsersController extends Controller
             'email' => 'required|unique:users,email',
             'password' => 'required|min:3',
             'is_admin' => 'required|boolean',
+            'role' => 'required' 
         ]);
 
         // Store the user

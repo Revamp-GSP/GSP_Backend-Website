@@ -22,6 +22,12 @@ class CreateUserSeeder extends Seeder
                 'is_admin'=>'1',
                 'password'=> bcrypt('123456'),
              ],
+             [
+                'name'=>'Rizky',
+                'email'=>'pegawai@gsp.co.id',
+                'is_admin'=>'0',
+                'password'=> bcrypt('123456'),
+             ],
         ];
   
         foreach ($user as $key => $value) {

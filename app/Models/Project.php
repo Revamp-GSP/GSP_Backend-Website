@@ -51,9 +51,9 @@ class Project extends Model
     {
         return $this->belongsTo(produk::class, 'product_id');
     }
-    public function comments()
+    public function tasks()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Task::class);
     }
     public function updateTotalValue()
     {

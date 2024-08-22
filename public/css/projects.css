@@ -1,18 +1,33 @@
 /* public/css/projects.css */
 
 body {
-    position: flex;
+    display: flex;
+    flex-direction: column; /* If you want the body to behave as a flex container */
     overflow-x: hidden;
     background-color: #CFD8DC;
+    margin: 0; /* Add margin 0 to avoid default body margin */
 }
 body,
 html {
     height: 100%;
     width: 100%;
 }
+#custom-container {
+    background-color: transparent !important;
+    width: 100%;
+    padding-top: 0px;
+    padding-right: 50px;
+    padding-bottom: 20px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
 
 #filter {
-    margin-left:350px;
+    justify-content: center; /* Memposisikan #filter ke tengah secara horizontal */
+    width: 100%; /* Menyesuaikan lebar #filter */
+    padding-left: 250px; /* Penyesuaian padding untuk penataan yang lebih baik */
+    padding-bottom: 0px; /* Memberi jarak ke bagian bawah */
+    border-radius: 20px; /* Mengubah tampilan dengan membuatnya lebih besar */
 }
 .search-create-wrapper {
     display: flex;
@@ -77,6 +92,7 @@ html {
     width: 100%;
     max-width: 100%;
     border-collapse: collapse;
+    overflow-y:auto;
     margin-left:25px;
     margin-right: 25px;
 }

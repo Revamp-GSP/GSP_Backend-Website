@@ -18,9 +18,10 @@ class CustomersAPIController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id_pelanggan' => 'required',
             'nama_pelanggan' => 'required',
-            'id_pelanggan' => 'required'
-            // tambahkan validasi lainnya sesuai kebutuhan
+            'sebutan' => 'required',
+            'created_by' => 'required'
         ]);
 
         if ($validator->fails()) {

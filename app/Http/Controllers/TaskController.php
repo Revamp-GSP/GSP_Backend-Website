@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Task; // Sesuaikan namespace dengan lokasi model Task Anda
+use App\Models\Task;
+use App\Models\User;
+use App\Notifications\TaskCreatedNotification;
+use App\Notifications\TaskUpdatedNotification;
+use App\Notifications\TaskDeletedNotification;
 
 class TaskController extends Controller
 {
@@ -40,6 +44,10 @@ class TaskController extends Controller
 
         // Simpan ke dalam database
         $task->save();
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new TaskCreatedNotification($task));
+        }
 
         // Redirect atau kirim respons sesuai kebutuhan Anda
         return redirect()->back()->with('success', 'Task berhasil ditambahkan.');

@@ -41,7 +41,8 @@ class UsersAPIController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
-            'is_admin' => 'required|boolean',        
+            'is_admin' => 'required|boolean', 
+            'role' => 'required' 
         ]);
 
         if ($validator->fails()) {
@@ -69,7 +70,8 @@ class UsersAPIController extends Controller
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6',
-            'is_admin' => 'required|boolean',        
+            'is_admin' => 'required|boolean',
+            'role' => 'required'       
         ]);
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => $validator->errors()], 400);

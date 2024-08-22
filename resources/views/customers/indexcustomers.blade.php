@@ -19,6 +19,7 @@
     </div>
 
     <!-- Customers table -->
+    <div class="table-wrapper">
     <table class="table">
         <thead>
             <tr>
@@ -57,6 +58,7 @@
             @endforeach
         </tbody>
     </table>
+    </div>
   <!-- Pagination links -->
 <div class="pagination">
     @if ($customers->onFirstPage())

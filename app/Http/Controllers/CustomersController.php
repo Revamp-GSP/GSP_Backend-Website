@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\Customers;
+use App\Models\customers;
 
 class CustomersController extends Controller
 {
@@ -43,8 +43,10 @@ class CustomersController extends Controller
     {
         // Validation
         $request->validate([
-            'nama_pelanggan' => 'required',
             'id_pelanggan' => 'required',
+            'nama_pelanggan' => 'required',
+            'sebutan' => 'required',
+            'created_by' => 'required'
         ]);
 
         // Store the customer
@@ -66,8 +68,10 @@ class CustomersController extends Controller
     {
         // Validation
         $request->validate([
-            'nama_pelanggan' => 'required',
             'id_pelanggan' => 'required',
+            'nama_pelanggan' => 'required',
+            'sebutan' => 'required',
+            'created_by' => 'required'
         ]);
 
         // Update the customer

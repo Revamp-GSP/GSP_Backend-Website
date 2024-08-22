@@ -38,6 +38,7 @@ Route::get('/logActivity', [ActivityLogController::class, 'index'])->name('logAc
 Route::delete('activity-log/delete', [ActivityLogController::class, 'delete'])->name('activity-log.delete');
 Route::delete('activity-log/delete-all', [ActivityLogController::class, 'deleteAll'])->name('activity-log.delete-all');
 Route::middleware('auth')->get('/notifications', [NotificationController::class, 'getNotifications']);
+Route::get('/allnotifications', [NotificationController::class, 'index'])->name('notifications.index');
 Route::middleware(['auth', 'logResponseTime', 'log.activity'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/admin/home', 'HomeController@adminHome')->name('admin.home')->middleware('is_admin');

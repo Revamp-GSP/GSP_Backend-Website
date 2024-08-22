@@ -4,44 +4,104 @@
 
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-@media (min-width: 768px) {
-  #page-content-wrapper {
-    width: calc(100% - 250px); /* Lebar konten utama diubah sesuai dengan lebar sidebar */
-  }
-}
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .sidebar-nav {
     width: 100%;
+    height: auto;
+    position: relative;
+  }
+  #page-content-wrapper {
+    margin-left: 0;
+  }
+  .hamburger {
+    display: block;
+    margin-left: 10px;
+  }
+  .card-container {
+    margin-left: 20px;
+    padding-right: 10px;
+  }
+  .calendar-section {
+    margin-left: 20px;
+    margin-top: -150px;
+  }
+  #wrapper {
+    padding-left: 20px;
   }
 }
 
-@media (min-width: 768px) {
+/* Media query untuk layar antara 768px hingga 991px (small screens) */
+@media (min-width: 768px) and (max-width: 991px) {
+  .sidebar-nav {
+    width: 200px;
+  }
+  #page-content-wrapper {
+    margin-left: 200px;
+  }
+  .card-container {
+    margin-left: 50px;
+  }
+  .calendar-section {
+    margin-left: 100px;
+    margin-top: -250px;
+  }
+  #wrapper {
+    padding-left: 50px;
+  }
+}
+
+/* Media query untuk layar antara 992px hingga 1199px (medium screens) */
+@media (min-width: 992px) and (max-width: 1199px) {
   .sidebar-nav {
     width: 250px;
   }
-}
-@media (min-width: 768px) {
   #page-content-wrapper {
-    margin-left: 250px; /* Sesuaikan dengan lebar sidebar */
+    margin-left: 250px;
   }
-}
-@media (min-width: 768px) {
-  .hamburger {
-    display: none; /* Sembunyikan tombol hamburger pada layar yang lebih besar */
+  .card-container {
+    /* Tidak perlu penyesuaian tambahan karena mengikuti aturan umum */
+  }
+  .calendar-section {
+    /* Tidak perlu penyesuaian tambahan karena mengikuti aturan umum */
+  }
+  #wrapper {
+    /* Tidak perlu penyesuaian tambahan karena mengikuti aturan umum */
   }
 }
 
-@media (max-width: 768px) {
-  .hamburger {
-    display: block; /* Tampilkan tombol hamburger pada layar kecil */
-    margin-left: 10px; /* Sesuaikan margin untuk posisi yang lebih baik */
+/* Media query untuk layar lebih besar atau sama dengan 1200px (large screens) */
+@media (min-width: 1200px) {
+  .sidebar-nav {
+    width: 300px;
+  }
+  #page-content-wrapper {
+    margin-left: 250px;
+  }
+  .card-container {
+    /* Tidak perlu penyesuaian tambahan karena mengikuti aturan umum */
+  }
+  .calendar-section {
+    /* Tidak perlu penyesuaian tambahan karena mengikuti aturan umum */
+  }
+  #wrapper {
+    /* Tidak perlu penyesuaian tambahan karena mengikuti aturan umum */
+  }
+}
+
+/* Optional: Styles for very small devices (less than 576px) */
+@media (max-width: 575px) {
+  .sidebar-nav a {
+    font-size: 16px;
+  }
+  #page-content-wrapper {
+    padding: 10px;
   }
 }
 
 
 body {
   position: flex;
-  overflow-x: hidden;
+  overflow-x: auto;
   background-color: #CFD8DC;
   padding-top: 56px;
 }
@@ -50,13 +110,8 @@ html {
   height: 950px;
   width: 100%;
 } 
+
 /* CSS */
-.navbar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  z-index: 1000; 
-}
 
 li {
   list-style: none;
@@ -97,10 +152,13 @@ a {
 }
 
 .navbar-title {
-  position: absolute;
-  left: 45%;
-  transform: translateX(-50%);
   color: white;
+  text-align: center; /* Center align the text */
+  margin: 0;
+  padding: 1rem 0;  
+  transform: translateX(-50%);
+  left:50%;
+  position: absolute;
 }
 
 
@@ -306,6 +364,10 @@ a {
 /*-------------------------------*/
 .navbar {
   padding: 0;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000; 
 }
 
 .sidebar-nav.active {
@@ -568,20 +630,20 @@ height: max-content;
 
 .card-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Menyebarkan elemen secara merata di sepanjang container */
   margin-bottom: 20px;
-  overflow-x: auto;
+  overflow-x: auto; /* Aktifkan gulir horizontal jika diperlukan */
   padding-bottom: 20px;
-  padding-right: 15px;
-  flex-wrap: wrap;
-  margin-left: 75px;
+  padding-right: 15px; /* Ruang kanan untuk memastikan elemen terpisah dengan baik */
+  margin-left: 50px; /* Jarak kiri untuk memisahkan dari tepi layar */
 }
 
 .card {
   border-radius: 10px;
   filter: drop-shadow(0 5px 10px 0 #ffffff);
-  width: 250px;
-  height: 180px;
+  width: 100%;
+  max-width: 400px; /* Batas maksimum lebar kartu */
+  height: 100px; /* Tinggi default */
   background-color: #ffffff;
   padding: 20px;
   position: relative;
@@ -619,7 +681,7 @@ height: max-content;
 
 .card p {
   padding: 10px 0;
-  font-size: 50px;
+  font-size: 24px;
   font-weight: bold;
   margin: 0; /* Menghilangkan margin bawaan */
   text-align: left;
@@ -628,6 +690,7 @@ height: max-content;
 .card:not(:last-child) {
   margin-right: 20px;
 }
+
 .card-link {
   text-decoration: none;
   color: inherit;
@@ -638,8 +701,45 @@ height: max-content;
   color: inherit; /* Tetap menggunakan warna teks yang sama saat dihover */
 }
 
+@media (max-width: 768px) {
+  .card {
+    height: auto; /* Mengizinkan tinggi kartu menyesuaikan konten di layar kecil */
+    padding: 15px; /* Mengurangi padding pada layar kecil */
+    max-width: 100%; /* Mengizinkan lebar kartu menyesuaikan konten di layar kecil */
+  }
+
+  .card p {
+    font-size: 20px; /* Ukuran font yang lebih kecil pada layar kecil */
+  }
+}
+
+/* Media query untuk layar medium hingga besar */
+@media (min-width: 769px) {
+  .card {
+    height: 150px; /* Tinggi kartu untuk layar medium hingga besar */
+    padding: 20px; /* Padding yang lebih besar untuk kartu */
+    max-width: 180px; /* Lebar kartu untuk layar medium hingga besar */
+  }
+
+  .card p {
+    font-size: 25px; /* Ukuran font yang lebih besar pada layar medium hingga besar */
+  }
+}
+
+@media (min-width: 992px) {
+  .card {
+    height: 180px; /* Tinggi kartu untuk layar besar */
+    max-width: 200px; /* Lebar kartu untuk layar besar */
+  }
+
+  .card p {
+    font-size: 28px; /* Ukuran font yang lebih besar pada layar besar */
+  }
+}
+
+
 .wrapper{
-  width: 650px;
+  width: 500px;
   height:500px;
   max-height:750px;
   padding: 28px 0 30px;
@@ -665,7 +765,7 @@ height: max-content;
 
 .calendar-section{
   display:flex;
-  margin-left: 150px;
+  margin-left: 25px;
   margin-top: -300px;
 }
 .task-input input{
@@ -879,7 +979,7 @@ height: max-content;
 
 .calendar-days {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(37px, 1fr)); /* Menyesuaikan jumlah kolom secara otomatis */
   gap: 2px;
   color: #0A0921;
 }

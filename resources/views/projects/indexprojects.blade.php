@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="table-container">
+<div class="container" id="custom-container">
     @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
@@ -170,14 +170,31 @@
                 <a href="{{ $projects->previousPageUrl() }}" rel="prev">&laquo; Previous</a>
             @endif
 
-            @if ($projects->lastPage() > 1)
-                @for ($i = 1; $i <= $projects->lastPage(); $i++)
-                    @if ($i == $projects->currentPage())
-                        <span id="page-{{ $i }}" class="active">{{ $i }}</span>
-                    @else
-                        <a id="page-{{ $i }}" href="{{ $projects->url($i) }}">{{ $i }}</a>
-                    @endif
-                @endfor
+            @php
+                $start = max(1, $projects->currentPage() - 5);
+                $end = min($projects->lastPage(), $start + 9);
+            @endphp
+
+            @if ($start > 1)
+                <a href="{{ $projects->url(1) }}">1</a>
+                @if ($start > 2)
+                    <span class="dot">...</span>
+                @endif
+            @endif
+
+            @for ($i = $start; $i <= $end; $i++)
+                @if ($i == $projects->currentPage())
+                    <span id="page-{{ $i }}" class="active">{{ $i }}</span>
+                @else
+                    <a id="page-{{ $i }}" href="{{ $projects->url($i) }}">{{ $i }}</a>
+                @endif
+            @endfor
+
+            @if ($end < $projects->lastPage())
+                @if ($end < $projects->lastPage() - 1)
+                    <span class="dot">...</span>
+                @endif
+                <a href="{{ $projects->url($projects->lastPage()) }}">{{ $projects->lastPage() }}</a>
             @endif
 
             @if ($projects->hasMorePages())
@@ -186,6 +203,7 @@
                 <span>Next &raquo;</span>
             @endif
         </div>
+
 
 @endsection
 

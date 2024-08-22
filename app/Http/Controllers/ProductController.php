@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\Produk;
+use App\Models\produk;
 
 class ProductController extends Controller
 {
@@ -44,7 +44,11 @@ class ProductController extends Controller
     {
         // Validation
         $request->validate([
+            'produk' => 'required',
             'id_service' => 'required',
+            'nama_service' => 'sometimes',
+            'deskripsi' => 'required',
+            'created_by' => 'required',        
         ]);
         // Store the product
         $productData = $request->all();
@@ -65,7 +69,11 @@ class ProductController extends Controller
     {
         // Validation
         $request->validate([
+            'produk' => 'required',
             'id_service' => 'required',
+            'nama_service' => 'required',
+            'deskripsi' => 'sometimes',
+            'created_by' => 'required',        
         ]);
 
         // Update the product

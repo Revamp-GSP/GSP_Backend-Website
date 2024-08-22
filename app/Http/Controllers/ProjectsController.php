@@ -8,11 +8,13 @@ use App\Models\Project;
 use App\Models\customers;
 use App\Models\produk;
 use App\Models\Task;
-use App\Models\Comment;
 use App\Models\User;
 use App\Notifications\ProjectCreatedNotification;
 use App\Notifications\ProjectUpdatedNotification;
 use App\Notifications\ProjectDeletedNotification;
+use App\Notifications\TaskCreatedNotification;
+use App\Notifications\TaskUpdatedNotification;
+use App\Notifications\TaskDeletedNotification;
 
 use Validator;
 
@@ -183,8 +185,6 @@ class ProjectsController extends Controller
         $produk = produk::firstOrCreate(['nama_service' => $request->nama_service]);
     
         $project->update($request->all());
-    
-        // Bandingkan data lama dan data baru
         // Bandingkan data lama dan data baru
         $changes = [];
         foreach ($request->all() as $key => $value) {
@@ -231,8 +231,6 @@ class ProjectsController extends Controller
     public function show($nama_pekerjaan)
     {
         $project = Project::where('nama_pekerjaan', $nama_pekerjaan)->first();
-        $comments = Comment::where('task_id', $project->id)->get();
-
         if (!$project) {
             abort(404);
         }
@@ -271,7 +269,6 @@ class ProjectsController extends Controller
             'currentStatus' => $currentStatus,
             'tasksStatic' => $tasksStatic, // Tugas statis
             'tasks' => $tasks,
-            'comments' => $comments
         ]);
     }
 
@@ -317,7 +314,10 @@ class ProjectsController extends Controller
 
         // Simpan ke dalam database
         $task->save();
-
+        $users = User::all();
+        foreach ($users as $user) {
+            $user->notify(new TaskCreatedNotification($task));
+        }
         // Redirect atau kirim respons sesuai kebutuhan Anda
         return redirect()->route('projects.show', ['nama_pekerjaan' => $request->nama_pekerjaan])
         ->with('success', 'Task berhasil ditambahkan.');    
@@ -361,10 +361,26 @@ class ProjectsController extends Controller
                             $query->where('nama_pekerjaan', $nama_pekerjaan);
                         })
                         ->firstOrFail();
-
+            $originalTask = $task->replicate(); // Simpan nilai asli proyek sebelum pembaruan
             // Mengupdate atribut-atribut task dengan data yang dikirimkan melalui request
             $task->update($request->all());
-
+                $changes = [];
+                foreach ($request->all() as $key => $value) {
+                    if ($originalTask->$key != $value && $key !== '_token' && $key !== '_method') {
+                        $changes[$key] = [
+                            'old' => $originalTask->$key,
+                            'new' => $value,
+                        ];
+                    }
+                }
+        
+                // Kirim notifikasi hanya jika ada perubahan
+                if (!empty($changes)) {
+                    $users = User::all();
+                    foreach ($users as $user) {
+                        $user->notify(new TaskUpdatedNotification($task, $changes));
+                    }
+                }
             // Redirect ke halaman proyek yang sesuai setelah berhasil mengupdate tugas
             return redirect()->route('projects.show', ['nama_pekerjaan' => $nama_pekerjaan])->with('success', 'Task berhasil diperbarui');
         } catch (\Exception $e) {

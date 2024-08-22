@@ -40,8 +40,12 @@ class ProductAPIController extends Controller
     {
         // Validation
         $validator = Validator::make($request->all(), [
+            'produk' => 'required',
             'id_service' => 'required',
-        ]);
+            'nama_service' => 'required',
+            'deskripsi' => 'sometimes',
+            'created_by' => 'required',       
+         ]);
 
         if ($validator->fails()) {
             return response()->json(['success' => false, 'message' => $validator->errors()], 400);

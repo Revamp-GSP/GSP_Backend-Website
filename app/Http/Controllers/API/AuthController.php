@@ -54,6 +54,7 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
     /**
      * Login The User
      * @param Request $request
@@ -91,6 +92,30 @@ class AuthController extends Controller
                 'token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
 
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    /**
+     * Logout the user (Revoke the token)
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logoutUser(Request $request)
+    {
+        try {
+            // Get the authenticated user's token and revoke it
+            $request->user()->currentAccessToken()->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User Logged Out Successfully',
+            ], 200);
+            
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

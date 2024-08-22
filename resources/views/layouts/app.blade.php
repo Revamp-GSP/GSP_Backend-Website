@@ -17,7 +17,7 @@
         <nav class="navbar navbar-expand-md shadow-sm fixed-top">
             <div class="container">
                 <div class="navbar-title">
-                    <h3>Dashboard Monitoring Project PT. Gerbang Sinergi Prima</h3>
+                    <h4>Dashboard Monitoring Project PT. Gerbang Sinergi Prima</h4>
                 </div>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto">
@@ -60,9 +60,6 @@
                                     <i class="fas fa-sign-out-alt" style="font-size: 24px;"></i> <!-- Icon Logout -->
                                 </a>
                             </li>
-                            <div class="logo">
-                                <img src="{{ asset('images/logo-nobg.png') }}" alt="Logo">
-                            </div>
                         @endguest
                     </ul>
                 </div>
@@ -86,7 +83,8 @@
                 <li><a href="{{ route('customers.index') }}"><i class="fas fa-user-friends"></i> Customers</a></li>
                 <li><a href="{{ route('products.index') }}"><i class="fas fa-handshake"></i> Services</a></li>
                 <li><a href="{{ route('users.index') }}"><i class="fas fa-user"></i> Users</a></li>
-                <li><a href="{{ route('logActivity') }}"><i class="fas fa-user"></i> Activity Log</a></li>
+                <li><a href="{{ route('notifications.index') }}"><i class="fas fa-bell"></i> Notifications</a></li>
+                <li><a href="{{ route('logActivity') }}"><i class="fas fa-list-alt"></i> Activity Log</a></li>
             </ul>
         </nav>
 

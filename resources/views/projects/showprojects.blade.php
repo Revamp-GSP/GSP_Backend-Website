@@ -251,7 +251,6 @@
         var index = $(this).attr('id').replace('addTaskForm', '');
         var nama_pekerjaan = $(this).data('project-name'); // Ambil nilai nama_pekerjaan dari atribut data
 
-        // Kirim data formulir ke server dengan menambahkan nilai nama_pekerjaan ke URL
         $.ajax({
             url: '/api/projects/' + nama_pekerjaan + '/tasks',
             type: 'POST',
@@ -260,7 +259,6 @@
             contentType: false,
             success: function (response) {
                 console.log('Task berhasil ditambahkan:', response);
-                // Redirect ke halaman proyek yang sesuai setelah berhasil menambahkan tugas
                 window.location.href = '/projects/' + response.project_id;
             },
             error: function (xhr, status, error) {
@@ -285,7 +283,7 @@
     var taskId = $(this).data('task-id'); // Mengambil nilai task_id dari atribut data
 
     $.ajax({
-        url: 'http://127.0.0.1:8000/api/projects/' + nama_pekerjaan + '/tasks/' + taskId,
+        url: '/api/projects/' + nama_pekerjaan + '/tasks/' + taskId,
         type: 'PUT',
         data: formData,
         processData: false,
@@ -307,7 +305,7 @@ $('.delete-task-btn').click(function() {
 
     if (confirm('Are you sure you want to delete this task?')) {
         $.ajax({
-            url: 'http://127.0.0.1:8000/api/projects/'+ nama_pekerjaan + '/tasks/' + taskId, 
+            url: '/api/projects/'+ nama_pekerjaan + '/tasks/' + taskId, 
             type: 'DELETE',
             success: function(response) {
                 if (response.success) {
@@ -325,6 +323,7 @@ $('.delete-task-btn').click(function() {
         });
     }
 });
+
 $('#addTaskModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget);
         var task = button.data('task'); 

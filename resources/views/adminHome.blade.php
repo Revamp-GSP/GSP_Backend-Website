@@ -20,8 +20,6 @@
         </div>
     </a>
 
-
-
     <a href="{{ route('products.index') }}" class="card-link">
         <div class="card">
             <div class="card-content">

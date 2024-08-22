@@ -49,14 +49,31 @@
                 <a href="{{ $logs->previousPageUrl() }}" rel="prev">&laquo; Previous</a>
             @endif
 
-            @if ($logs->lastPage() > 1)
-                @for ($i = 1; $i <= $logs->lastPage(); $i++)
-                    @if ($i == $logs->currentPage())
-                        <span id="page-{{ $i }}" class="active">{{ $i }}</span>
-                    @else
-                        <a id="page-{{ $i }}" href="{{ $logs->url($i) }}">{{ $i }}</a>
-                    @endif
-                @endfor
+            @php
+                $start = max(1, $logs->currentPage() - 5);
+                $end = min($logs->lastPage(), $start + 9);
+            @endphp
+
+            @if ($start > 1)
+                <a href="{{ $logs->url(1) }}">1</a>
+                @if ($start > 2)
+                    <span class="dot">...</span>
+                @endif
+            @endif
+
+            @for ($i = $start; $i <= $end; $i++)
+                @if ($i == $logs->currentPage())
+                    <span id="page-{{ $i }}" class="active">{{ $i }}</span>
+                @else
+                    <a id="page-{{ $i }}" href="{{ $logs->url($i) }}">{{ $i }}</a>
+                @endif
+            @endfor
+
+            @if ($end < $logs->lastPage())
+                @if ($end < $logs->lastPage() - 1)
+                    <span class="dot">...</span>
+                @endif
+                <a href="{{ $logs->url($logs->lastPage()) }}">{{ $logs->lastPage() }}</a>
             @endif
 
             @if ($logs->hasMorePages())
@@ -65,7 +82,6 @@
                 <span>Next &raquo;</span>
             @endif
         </div>
-
     <!-- Modal untuk konfirmasi menghapus semua aktivitas -->
     <div class="modal fade" id="deleteAllModal" tabindex="-1" role="dialog" aria-labelledby="deleteAllModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

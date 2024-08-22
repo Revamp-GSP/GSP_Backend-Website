@@ -27,6 +27,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('/auth/register', [AuthController::class, 'createUser']);
 Route::post('/auth/login', [AuthController::class, 'loginUser']);
+Route::post('/logout', [AuthController::class, 'logoutUser'])->middleware('auth:sanctum');
 
 Route::get('/products', [ProductAPIController::class, 'index']);
 Route::get('/products/{id}', [ProductAPIController::class, 'show']);
@@ -67,6 +68,7 @@ Route::delete('/projects/{nama_pekerjaan}/tasks/{task_id}', [TaskAPIController::
 Route::post('/projects/{nama_pekerjaan}/tasks/comments/add', [TaskAPIController::class, 'addComment'])->name('task.addComment');
 
 Route::get('/notifications', [NotificationController::class, 'getAllNotifications']);
+Route::middleware('auth:sanctum')->get('/notifications', [NotificationController::class, 'getNotifications']);
 
 Route::get('/download/{filename}', function ($filename) {
     $path = public_path('files/' . $filename);

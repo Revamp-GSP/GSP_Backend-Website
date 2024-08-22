@@ -4,6 +4,8 @@ body {
     background-color: #f8f9fa;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 #custom-container {
     background-color: transparent !important;
@@ -97,6 +99,11 @@ body {
     text-decoration: none;
 }
 /* Table Styling */
+.table-wrapper {
+    width: 100%;
+    max-height: 400px; /* Sesuaikan tinggi maksimum sesuai kebutuhan */
+    overflow: auto; /* Mengaktifkan scrolling jika konten melebihi ukuran elemen */
+}
 .table {
     width: 100%;
     max-width: 100%; /* Tabel tidak akan melebihi lebar parent container */
