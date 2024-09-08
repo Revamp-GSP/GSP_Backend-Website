@@ -153,11 +153,18 @@ class TaskAPIController extends Controller
             $user->notify(new TaskCreatedNotification($task));
         }
 
-        // Mengembalikan respons JSON
-        return redirect()->route('projects.show', ['nama_pekerjaan' => $request->nama_pekerjaan])
-        ->with('success', 'Task berhasil ditambahkan.');
+        if ($request->expectsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Task berhasil ditambahkan.',
+                'task' => $task
+            ], 201);
         }
-
+    
+        // Mengembalikan redirect jika bukan API
+        return redirect()->route('projects.show', ['nama_pekerjaan' => $request->nama_pekerjaan])
+            ->with('success', 'Task berhasil ditambahkan.');
+    }
     public function updateTask(Request $request, $nama_pekerjaan, $task_id)
     {
         // Validasi input menggunakan Validator
@@ -214,14 +221,28 @@ class TaskAPIController extends Controller
             }
     
             // Mengembalikan respons JSON sukses
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Task berhasil diperbarui.',
+                    'task' => $task
+                ], 200);
+            }
+    
+            // Mengembalikan redirect jika bukan API
             return redirect()->route('projects.show', ['nama_pekerjaan' => $nama_pekerjaan])
-            ->with('success', 'Task berhasil diperbarui.');
-            } catch (\Exception $e) {
+                ->with('success', 'Task berhasil diperbarui.');
+    
+        } catch (\Exception $e) {
             // Logging error detail
             \Log::error('Update task error: ' . $e->getMessage());
     
             // Jika task tidak ditemukan atau terjadi kesalahan lain
-            return response()->json(['success' => false, 'message' => 'Gagal memperbarui task. Pesan error: ' . $e->getMessage()], 500);
+            if ($request->expectsJson()) {
+                return response()->json(['success' => false, 'message' => 'Gagal memperbarui task. Pesan error: ' . $e->getMessage()], 500);
+            }
+    
+            return redirect()->back()->with('error', 'Gagal memperbarui task. Pesan error: ' . $e->getMessage());
         }
     }
     

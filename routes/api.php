@@ -68,7 +68,6 @@ Route::delete('/projects/{nama_pekerjaan}/tasks/{task_id}', [TaskAPIController::
 Route::post('/projects/{nama_pekerjaan}/tasks/comments/add', [TaskAPIController::class, 'addComment'])->name('task.addComment');
 
 Route::get('/notifications', [NotificationController::class, 'getAllNotifications']);
-Route::middleware('auth:sanctum')->get('/notifications', [NotificationController::class, 'getNotifications']);
 
 Route::get('/download/{filename}', function ($filename) {
     $path = public_path('files/' . $filename);
